@@ -199,6 +199,8 @@ def main():
     Loads the celebrity list, lets the player choose a mode (vs bot; vs player),
     and runs the game loop. 
 
+    Primary Author: Jamie Rivera
+
     """
     print("=" * 40)
     print("      CELEBRITY WORD JAB")
