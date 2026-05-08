@@ -113,8 +113,134 @@ print("You go first! Enter any celebrity to begin: \n")
 
 while True:
 
+    prompt = "You: " if required_letter is None else 
+    f"You must pick a celebrity that starts with '{required_letter}': "
+
+if required_letter is None:
+    player_name = input(prompt).strip().title()
+    while player_name not in celebrity_names or len(player_name.split()) < 2:
+        print("Not a valid celebrity name. Try Again!")
+        player_name = get_valid_input(prompt, required_letter, used_names, celebrity_names)
+
+used_names.add(player_name)
+required_letter = get_required_letter(player_name)
+print(f"Good Job! Next name must start with '{required_letter}'. \n")
+
+
+print("Bot is thinking...")
+bot_name = choose_valid_bot_name(required_letter, used_names, celebrity_names)
+
+if bot_name is None:
+    print(f"Bot has no valid name starting with '{required_letter}'."
+    print("You Win! \n")
+    break
+
+used_names.add(bot_name)
+required_letter = get_required_letter(bot_name)
+print(f"Bot: '{bot_name}'")
+print(f"Next name must start with '{required_letter}'. \n")
+
+
+if not find_valid_names(required_letter, used_names, celebrity_names):
+    print(f"No valid names left starting with '{required_letter}'.")
+    print("Bot Wins! Better luck next time!")
+    break
+
+
+def play_vs_friend(celebrity_names):
+    """ 
+    Run a single game session between two human players. 
+
+    Players alternate turns. The game ends when a player 
+    cannot name a valid celebrity or gives up. 
+
+    Args:
+        celebrity_names (list[str]): The full celebrity list.
+
+    """
+
+    used_names = set()
+    required_letter = None
+    current_player = 1
+
+print("Player 1 goes first! Enter any celebrity to start. \n")
+
+while True:
     if required_letter is None:
-        prompt = 
+        entry = input(f"Player {current_player}: ").strip().title()
+        while entry not in celebrity_names or len(entry.split()) < 2:
+            print("Not a valid celebrity name. Try again!")
+            entry = input(f"Player {current_player}: ").strip().title()
+
+    else:
+        prompt = f"Player {current_player} your celeb must start with '{required_letter}': "
+        entry = get_valid_input(prompt, required_letter, used_names, celebrity_names)
+
+    used_names.add(entry)
+    required_letter = get_required_letter(entry)
+    print(f"Next name must start with '{required_letter}'. \n")
+
+
+    next_player = 2 if current_player == 1 else 1
+
+    if not find_valid_names(required_letter, used_names, celebrity_names):
+        print(f"No valid names left starting with '{required_letter}'.") 
+        print(f"Player {current_player} Wins! Player {next_player} has no valid names.")
+
+        break
+
+    current_player = next_player
+
+
+def main():
+    """
+    Starting set-up of Celebrity Word Jab.
+
+    Loads the celebrity list, lets the player choose a mode (vs bot; vs player),
+    and runs the game loop. 
+
+    """
+    print("=" * 40)
+    print("      CELEBRITY WORD JAB")
+    print("=" * 40)
+    print("Rules: Name a celebrity. The next player must name")
+    print("another celebrity whose FIRST name start with the LAST")
+    print("name's first letter of the previous.")
+    print("Example: Michael JACKSON -> JANIS Joplin")
+    print("=" * 40)
+
+    while True:
+        print("\n Choose a mode: ")
+        print(" 1 - Play vs Bot")
+        print(" 2 - Play vs Friend")
+        print(" 3 - Quit")
+        choice = input("Your choice: ").strip()
+
+        if choice == "1":
+            play_vs_bot(celebrity_names)
+        elif choice == "2":
+            play_vs_friend(celebrity_names)
+        elif choice == "3":
+            print("\nThanks for playing!")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
+
+        again = input("\nPlay again? (y/n): ").strip().lower()
+        if again != "y":
+            print("\nThanks for playing!")
+            break
+
+
+if __name__ == "__main__":
+    main()
+                                                     
+
+
+
+
+                                                    
+
 
 
 
