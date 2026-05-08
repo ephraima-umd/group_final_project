@@ -94,6 +94,27 @@ def get_valid_input(prompt, required_letter, used_names, celebrity_names):
 
         return entry
 
+def play_vs_bot(celebrity_names):
+    """
+    Run a single games between the player and the bot. 
+
+    The player goes first by entering any celebrity. Then turns alternate. 
+    The game ends when either the player or the bot cannot find a valid name. 
+
+    Args:
+        celebrity_names (list[str]): the full celebrity list. 
+
+    """
+
+    used_names = set()
+    required_letter = None
+
+print("You go first! Enter any celebrity to begin: \n")
+
+while True:
+
+    if required_letter is None:
+        prompt = 
 
 
 
